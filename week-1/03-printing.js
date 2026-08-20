@@ -60,6 +60,6 @@ let deep = {
   }
 };
 
-console.log(deep); // { level1: { level2: level3: { [ Object ] } } }
+console.log(deep); // { level1: { level2: { level3: [Object] } } }
 console.log(deep.level1.level2.level3.level4.value);
 console.log(JSON.stringify(deep, null, 2));
