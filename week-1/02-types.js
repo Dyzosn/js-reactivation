@@ -9,7 +9,7 @@ console.log(typeof isGay); // "boolean"
 let und;
 console.log(typeof und); // "undefined"
 let n = null;
-console.log(typeof n); // "null"
+console.log(typeof n); // "object"
 let arry = [21, "So High", false];
 console.log(typeof arry); // "object"
 let obj = { age: 21, height: "So High", female: false };
@@ -26,7 +26,7 @@ let und1;
 console.log(Number(str1)); // 21
 console.log(Number(str2)); // NaN
 console.log(Number(str3)); // NaN
-console.log(Number(str4)); // NaN
+console.log(Number(str4)); // 0
 console.log(parseInt(str1)); // 21
 console.log(parseInt(str2)); // NaN
 console.log(parseInt(str3)); // 21
