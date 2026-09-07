@@ -61,3 +61,16 @@ for (let i = 0; i < arr1.length; i++) {
 // break doesn't work inside .forEach callback because the callback is
 // a separate function, not part of the loop structure itself.
 // Error: "Jump target cannot cross function boundary"
+
+
+// Experiment only, not best practice: for...in on an array gives string
+// indixes ('0', '1', ...) instead of numbers, and can pick up custom properties that aren't real elements.
+// Use for, for...of, or .forEach for arrays instead.
+for (const key in arr1) {
+  console.log(key, typeof key);
+}
+// 0 string
+// 1 string
+// 2 string
+// 3 string
+// 4 string
