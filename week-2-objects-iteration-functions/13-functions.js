@@ -79,3 +79,16 @@ function runTask(taskName, onFinish) {
 runTask('pooping', function (taskName) {
     console.log(`${taskName} finished successfully.`);
 }); // pooping finished successfully.
+
+function retryAction(action, maxAttempts) {
+    for (let i = 1; i <= maxAttempts; i++) {
+        action(i);
+    }
+}
+
+retryAction(function (i) {
+    console.log(`retry: ${i}`)
+},3);
+// retry: 1
+// retry: 2
+// retry: 3
