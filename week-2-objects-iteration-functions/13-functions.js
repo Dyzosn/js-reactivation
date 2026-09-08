@@ -92,3 +92,15 @@ retryAction(function (i) {
 // retry: 1
 // retry: 2
 // retry: 3
+
+function anyOperation(x, y, operation) { 
+return operation(x,y); 
+}
+function addition(x, y) { 
+return x + y; 
+}
+console.log(anyOperation(3, 2, addition)); // 5
+// anon example: 
+console.log(anyOperation(5, 7, function (x, y) { 
+return x * y; 
+})); // 35
