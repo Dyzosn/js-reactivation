@@ -203,3 +203,94 @@ console.log([].reduce((acc, n) => acc + n, 0));
 
 // Without an initial value: throws TypeError, so it stays commented out.
 // console.log([].reduce((acc, n) => acc + n));
+
+// Item 3: Build a frequency count with reduce — compare against your Day 9 loop version.
+
+const fruits = ['apple', 'pen', 'apple', 'book', 'pen', 'apple'];
+
+// Day 9 loop version (same pattern as the cars counter in 09-object-methods.js)
+const fruitCounter = {};
+for (const fruit of fruits) {
+    fruitCounter[fruit] === undefined ? fruitCounter[fruit] = 1 : fruitCounter[fruit]++;
+}
+console.log(fruitCounter);
+
+// reduce version (expected: { apple: 3, pen: 2, book: 1 })
+console.log(fruits.reduce((acc, fruit) => {
+    acc[fruit] = (acc[fruit] ?? 0) + 1;
+    return acc;
+}, {}));
+
+// Prediction of acc after the 4th round (apple, pen, apple, book), written BEFORE running:
+// { apple: 2, pen: 1, book: 1 }
+
+// Comparison:
+// Structure: the loop needs two separate parts, a result variable declared outside
+// and a for loop that processes it. reduce puts both in one call with two arguments,
+// the callback and the initial value ({}), which replaces the outside variable.
+// Style: I wrote the loop with a ternary (?) and the reduce with ?? 0. That is a
+// writing choice, either one works in both versions.
+// Readability: I find the loop easier to read, but reduce is more compact
+// and goes straight to the point.
+
+// Item 3 (continued): count each letter of a string with reduce.
+
+const word = 'banana';
+
+// split the string into an array of letters first
+const splitWord = word.split('');
+
+// reduce version on the letters (expected: { b: 1, a: 3, n: 2 })
+console.log(splitWord.reduce((acc, letter) => {
+    acc[letter] = (acc[letter] ?? 0) + 1;
+    return acc;
+}, {}));
+
+// Prediction of acc after the 4th round (b, a, n, a), written BEFORE running:
+// { b: 1, a: 2, n: 1 }
+
+// Item 4: Build a group-by with reduce.
+
+const books = [
+    { title: 'Dune', genre: 'scifi' },
+    { title: 'Emma', genre: 'romance' },
+    { title: 'Neuromancer', genre: 'scifi' },
+    { title: 'Persuasion', genre: 'romance' },
+    { title: 'Hyperion', genre: 'scifi' },
+];
+
+// loop version (group by genre)
+const loopGroup = {};
+for (const book of books) {
+    if (loopGroup[book.genre] === undefined) {
+        loopGroup[book.genre] = [book];
+    } else {
+        loopGroup[book.genre].push(book);
+    }
+}
+console.log(loopGroup);
+
+// reduce version (group by genre)
+console.log(books.reduce((acc, book) => {
+    acc[book.genre] === undefined ? acc[book.genre] = [book] : acc[book.genre].push(book); 
+    return acc;
+}, {}));
+
+// Prediction of acc after the 3rd round (Dune, Emma, Neuromancer), written BEFORE running:
+// { 
+//   scifi: [ 
+//     { title: 'Dune', genre: 'scifi' }, 
+//     { title: 'Neuromancer', genre: 'scifi' } 
+//   ],
+//   romance: [
+//     { title: 'Emma', genre: 'romance' }
+//   ] 
+// }
+
+// Note: logical assignment operators (extra, not a checklist item).
+// a ??= b  means: if a is null or undefined, set a to b. Otherwise leave a alone.
+// a ||= b  means: if a is falsy, set a to b.
+// a &&= b  means: if a is truthy, set a to b.
+// They short-circuit: when a does not need changing, b is not evaluated and nothing is written.
+// Group-by use: acc[key] ??= []; creates the group only when it does not exist yet,
+// instead of acc[key] = acc[key] ?? [];, which rewrites an existing value onto itself.
